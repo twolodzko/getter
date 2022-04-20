@@ -115,6 +115,7 @@ def test_dataclass():
 
 
 def test_namedtuple():
+
     Measurements = namedtuple("Measurements", ["height", "weight"])
 
     data_dcs = []

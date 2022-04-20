@@ -67,6 +67,10 @@ def bmi(weight, height):
 bmi(data)
 ```
 
+## Examples
+
+More usage examples can be found in [the unit tests](getter/test/test_integration.py).
+
 ## Installation
 
 To install the package using pip run the following command:
