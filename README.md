@@ -81,6 +81,20 @@ def bmi(weight, height):
 bmi(data)
 ```
 
+## Installation
+
+To install the package using pip run the following command:
+
+```shell
+pip install git+https://github.com/twolodzko/geetter.git#egg=getter
+```
+
+or clone the repository and run
+
+```shell
+make install
+```
+
 
  [weights and heights]: https://www.kaggle.com/datasets/burnoutminer/heights-and-weights-dataset
  [calculate the BMI]: https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html

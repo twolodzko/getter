@@ -1,4 +1,12 @@
 
+dist: getter
+	pip install build
+	python -m build
+
+.PHONY: install
+install: dist
+	pip install --force-reinstall dist/*.whl
+
 .PHONY: allchecks
 allchecks: stylecheck typecheck test
 
