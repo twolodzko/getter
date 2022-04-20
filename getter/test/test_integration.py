@@ -24,12 +24,27 @@ expected = [
 ]
 
 
-def test_lists():
+def test_list_of_records():
 
     data_list = copy.deepcopy(data)
 
     @get.foreach
     @get.fields(names=["height", "weight"])
+    def bmi(weight, height):
+        return weight / height**2 * 703
+
+    np.testing.assert_allclose(bmi(data_list), expected)
+
+
+def test_list_of_lists():
+
+    data_list = [[], []]
+    for i in range(len(data)):
+        for j in range(2):
+            data_list[j].append(data[i][j])
+    # [ [65, ...], [112, ...] ]
+
+    @get.asarrays(names=["height", "weight"])
     def bmi(weight, height):
         return weight / height**2 * 703
 
@@ -43,6 +58,7 @@ def test_dict():
     for i in range(len(data)):
         for j, name in enumerate(["height", "weight"]):
             data_dict[name].append(data[i][j])
+    # { "height": [...], "weight": [...] }
 
     @get.asarrays
     def bmi(weight, height):
@@ -51,8 +67,24 @@ def test_dict():
     np.testing.assert_allclose(bmi(data_dict), expected)
 
 
+def test_list_of_dicts():
+
+    data_dicts = []
+    for row in data:
+        data_dicts.append(dict(zip(["height", "weight"], row)))
+    # [ { "height": 65, "weight": 112 }, { "height": ... }, ... ]
+
+    @get.foreach
+    @get.fields
+    def bmi(weight, height):
+        return weight / height**2 * 703
+
+    np.testing.assert_allclose(bmi(data_dicts), expected)
+
+
 def test_numpy():
 
+    # column major
     data_arr = np.asarray(data)
 
     @get.foreach
@@ -65,6 +97,7 @@ def test_numpy():
 
 def test_numpy_transposed():
 
+    # row major, Numpy convention
     data_arr = np.asarray(data).T
 
     @get.fields(names=["height", "weight"])
