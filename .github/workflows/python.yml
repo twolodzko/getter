@@ -2,13 +2,12 @@ name: Python package
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -16,15 +15,15 @@ jobs:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
           pip install --upgrade pip
-          pip install pytest isort black mypy
-          pip install pandas numpy
-    - name: Run tests
-      run: make allchecks
+          make install
+      - name: Run tests
+        run: |
+          make allchecks
