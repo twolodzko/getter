@@ -25,5 +25,6 @@ jobs:
           pip install --upgrade pip
           pip install pytest black isort mypy pandas numpy
       - name: Run tests
-        run: |
-          make allchecks
+        run: make allchecks
+      - name: Try installing it
+        run: make install
