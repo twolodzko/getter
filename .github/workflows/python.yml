@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          make install
+          pip install pytest black isort mypy pandas numpy
       - name: Run tests
         run: |
           make allchecks
