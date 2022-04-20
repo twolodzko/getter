@@ -72,7 +72,7 @@ bmi(data)
 To install the package using pip run the following command:
 
 ```shell
-pip install git+https://github.com/twolodzko/geetter.git#egg=getter
+pip install git+https://github.com/twolodzko/getter.git#egg=getter
 ```
 
 or clone the repository and run
