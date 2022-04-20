@@ -27,3 +27,7 @@ stylefix:
 stylecheck:
 	isort --settings-path pyproject.toml --check .
 	black --config pyproject.toml --check .
+
+.PHONY: clean
+clean:
+	rm -rf ./dist getter.egg-info .mypy_cache .pytest_cache __pycache__
