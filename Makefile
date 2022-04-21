@@ -34,4 +34,4 @@ stylecheck:
 
 .PHONY: clean
 clean:
-	rm -rf ./dist getter.egg-info .mypy_cache .pytest_cache __pycache__ .coverage
+	rm -rf ./dist getter.egg-info .mypy_cache .pytest_cache __pycache__ .coverage htmlcov
