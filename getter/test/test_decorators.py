@@ -152,18 +152,3 @@ def test_with_kwargs():
     }
 
     np.testing.assert_array_almost_equal(add(data), np.asarray([11, 22]))
-
-
-def test_with_positional_only_args():
-    with pytest.raises(NotImplementedError):
-
-        @get.asarrays
-        def add(x, y, /):
-            return x + y
-
-        data = {
-            "x": [1, 2],
-            "y": [10, 20],
-        }
-
-        add(data)
