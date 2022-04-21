@@ -7,7 +7,7 @@ import pandas as pd
 import pytest
 
 
-def test_arrays_with_default():
+def test_asarrays_with_default():
     @get.asarrays
     def add(x, y=100):
         return x + y
@@ -35,7 +35,7 @@ def test_arrays_with_default():
         ),
     ],
 )
-def test_arrays_missing_column(example):
+def test_fields_missing_column(example):
     @get.fields
     def add(x, y=100):
         return x + y
@@ -94,7 +94,7 @@ def test_arrays_missing_column(example):
         ),
     ],
 )
-def test_arrays(example, names, expected):
+def test_asarrays(example, names, expected):
     @get.asarrays(names=names)
     def add(x, y):
         return x + y
@@ -124,3 +124,46 @@ def test_with_namedtuple():
         return weight / (height / 100) ** 2
 
     assert (bmi(Measurements(68, 165)) - 24.98) < 0.1
+
+
+def test_with_args():
+    # ignore *args
+    @get.asarrays
+    def add(x, y, *args):
+        return x + y
+
+    data = {
+        "x": [1, 2],
+        "y": [10, 20],
+    }
+
+    np.testing.assert_array_almost_equal(add(data), np.asarray([11, 22]))
+
+
+def test_with_kwargs():
+    # ignore **kwargs
+    @get.asarrays
+    def add(x, y, **kwargs):
+        return x + y
+
+    data = {
+        "x": [1, 2],
+        "y": [10, 20],
+    }
+
+    np.testing.assert_array_almost_equal(add(data), np.asarray([11, 22]))
+
+
+def test_with_positional_only_args():
+    with pytest.raises(NotImplementedError):
+
+        @get.asarrays
+        def add(x, y, /):
+            return x + y
+
+        data = {
+            "x": [1, 2],
+            "y": [10, 20],
+        }
+
+        add(data)

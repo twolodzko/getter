@@ -14,7 +14,7 @@ def _extract_parameters(func: Callable) -> Iterable[Parameter]:
     params = []
     for param in inspect.signature(func).parameters.values():
         if param.kind == param.POSITIONAL_ONLY:
-            raise ValueError("Positional only parameters are not supported")
+            raise NotImplementedError("Positional only parameters are not supported")
         if param.kind in {param.VAR_POSITIONAL, param.VAR_KEYWORD}:
             continue
         params.append(Parameter(param.name, param.default))
