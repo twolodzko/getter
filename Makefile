@@ -7,12 +7,16 @@ dist: getter
 install: dist
 	pip install --force-reinstall dist/*.whl
 
+.PHONY: install-dev
+install-dev: getter
+	pip install -e .[test]
+
 .PHONY: allchecks
 allchecks: stylecheck typecheck test
 
 .PHONY: test
 test:
-	pytest -v --color=yes --doctest-modules .
+	pytest -v --color=yes --doctest-modules --cov=. .
 
 .PHONY: typecheck
 typecheck:
